@@ -1,0 +1,24 @@
+{% extends 'golf/base.html' %}
+
+{% block content %}
+    {% for tournament in tournaments %}
+        <!-- <article class="post">
+            <time>{{ tournament.start_date }}</time>
+            <h2><a href="{% url 'tournament_detail' pk=tournament.pk %}">{{ tournament.name }}</a></h2>
+            <p>{{ tournament.desc }}</p>
+        </article> -->
+        <div class="col-4" style="margin-bottom: 10px;">
+            <div class="card h-100" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">{{ tournament.name }}</h5>
+                <p class="card-text">{{ tournament.start_date }}</p>
+                <p class="card-text text-truncate">{{ tournament.desc }}</p>
+                <a href="{% url 'tournament_detail' pk=tournament.pk %}" class="btn btn-primary">View Details</a>
+                {% if user.is_authenticated and today < tournament.start_date %}
+                    <a href="{% url 'register_a_player' pk=tournament.pk user_id=user.id %}"><button type="button" class="btn btn-success">Register</button></a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

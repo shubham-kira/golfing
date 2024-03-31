@@ -1,0 +1,39 @@
+{% extends 'golf/base.html' %}
+
+{% block content %}
+    <div class="col">
+        <article class="post">
+            Start Date: <time>{{ tournament.start_date }}</time>
+            <h2><a href="{% url 'tournament_detail' pk=tournament.pk %}">{{ tournament.name }}</a></h2>
+            <p class="word-wrap" style="word-wrap: break-word;">{{ tournament.desc }}</p>
+        </article>
+        <br>
+        <h3>Players in the Tournament</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Player</th>
+                <th scope="col">Handicap</th>
+                <th scope="col">Strokes</th>
+                <th scope="col">Score</th>
+                {% if user.is_staff %}
+                <th scope="col">Edit</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for player in players %}
+            <tr>
+                <td>{{ player.player.user.username }}</td>
+                <td>{{ player.player.handicap }}</td>
+                <td>{{ player.no_of_strokes }}</td>
+                <td>{{ player.score }}</td>
+                {% if user.is_staff %}
+                <th scope="col"><a href="{% url 'edit_score' pk=player.pk %}" style="text-decoration: none;">&#9998;</a></th>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

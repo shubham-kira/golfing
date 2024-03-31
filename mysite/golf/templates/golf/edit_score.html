@@ -1,0 +1,21 @@
+{% extends 'golf/base.html' %}
+
+{% block content %}
+    <div class="col">
+        <center><h2>{{ play.tournament.name }} | {{ play.player.user.username }}</h2></center><br>
+        <form action="{% url 'update_score' pk=play.pk %}" method="POST">
+            {% csrf_token %}
+        <!-- <div class="row">
+            <div class="col"> -->
+                <center><label for="no_of_strokes">No of Strokes:</label>
+                <input type="text" id="no_of_strokes" name="no_of_strokes" value="{{ play.no_of_strokes }}"><br><br></center>
+            <!-- </div>
+            <div class="col"> -->
+                <center><label for="score">Score:</label>
+                <input type="text" id="score" name="score" value="{{ play.score }}"><br><br></center>
+            <!-- </div>
+        </div> -->
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}
